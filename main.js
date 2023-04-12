@@ -28,6 +28,7 @@ function getWeatherGeolocation(position) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   fetchData(apiUrl);
 }
+
 function fetchData(apiUrl) {
   fetch(apiUrl)
     .then((response) => {
@@ -156,6 +157,13 @@ function bgChange(data) {
   cardImg.style.backgroundRepeat = "no-repeat";
   cardImg.style.height = "480px";
 }
+function formatTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const hours = date.getHours();
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+  const formattedTime = hours + ':' + minutes;
+  return formattedTime;
+}
 
 window.onload = function () {
   if (navigator.geolocation) {
@@ -172,17 +180,11 @@ searchBar.addEventListener('keypress', function (event) {
   }
 });
 
-searchBtn.addEventListener('click', function (event) {
+searchBtn.addEventListener('click', function () {
   getWeatherByInput(searchBar.value);
   searchBar.value = "";
 });
 
-function formatTime(timestamp) {
-  const date = new Date(timestamp * 1000);
-  const hours = date.getHours();
-  const minutes = ("0" + date.getMinutes()).slice(-2);
-  const formattedTime = hours + ':' + minutes;
-  return formattedTime;
-}
+
 
 
